@@ -89,7 +89,7 @@ $counter = DB::table('counter')->count();
 </div>
 <footer>
 
-    <a class="btn-effect btn-contact-block" href="tel:{{ $settings['PHONE'] }}">
+    {{-- <a class="btn-effect btn-contact-block" href="tel:{{ $settings['PHONE'] }}">
         <div class="child-nth-1 animate__animated animate__zoomIn"></div>
         <div class="child-nth-2 animate__animated animate__pulse"></div>
         <p class="btn-img">
@@ -102,7 +102,7 @@ $counter = DB::table('counter')->count();
         <p class="btn-img">
             <img src="{{ asset('public/site/images/zl.png') }}" alt="">
         </p>
-    </a>
+    </a> --}}
 
     <div class="container">
         <div class="row">

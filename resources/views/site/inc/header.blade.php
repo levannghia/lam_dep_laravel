@@ -8,7 +8,8 @@
                 </div>
                 <div class="contact-block">
                     <ul class="contact-block-list">
-                        <p class="phone-header">{{ $settings['PHONE'] }}</p>
+                        <p class="phone-header"><i class="fa fa-phone" aria-hidden="true"></i>
+                            {{ $settings['PHONE'] }}</p>
                         @foreach ($mxh_top as $item)
                             <li class="contact-block-item">
                                 <a href="{{ $item->link }}" class="contact-block-link">
@@ -26,7 +27,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-nav">
                 <div class="banner_image">
                     <a class="navbar-brand logo-img" href="/">
-                        <img src="{{asset('public/site/images/logo_header.png')}}" alt="">
+                        <img src="{{ asset('public/site/images/logo_header.png') }}" alt="">
                     </a>
                 </div>
 
@@ -55,11 +56,12 @@
                     </ul> -->
                 </div>
             </nav>
+
         </div>
     </div>
     <div class="menu-header">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-green">
+            <nav class="navbar navbar-expand-lg navbar-light">
                 <!-- <a class="navbar-brand danh-muc pd-li" href="#"><img src="images/taxes-menu-icon.png" alt=""> DANH MỤC
                     SẢN PHẨM</a> -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -69,12 +71,15 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav pd-li menu-category menu-center">
                         {{-- <li class="nav-item active pd-li icon-size">
-                            <a class="nav-link  pd-li" href="/"><img
-                                    src="{{ asset('public/site/images/taxes-menu-icon.png') }}" alt="">DANH MỤC SẢN
-                                PHẨM</a>
+                            <a class="nav-link  pd-li" href="/">
+                                </a>
                         </li> --}}
                         <li class="nav-item bg-ani {{ Request::path() == '/' ? 'actives' : '' }}">
-                            <a class="nav-link" href="/">{{ __('lang.home') }}</a>
+                            <a class="nav-link" href="/"><img
+                                    src="{{ asset('public/site/images/Home-Icon.png') }}" alt=""></a>
+                        </li>
+                        <li class="nav-item bg-ani ">
+                            <a class="nav-link" href="/">Trang chủ</a>
                         </li>
                         {{-- <li class="line"></li> --}}
                         <li class="nav-item bg-ani {{ Request::path() == 'gioi-thieu' ? 'actives' : '' }}">
@@ -88,7 +93,7 @@
                             </li>
                             <div class="dropdown-content">
                                 @foreach ($serviceHeader as $item)
-                                <a href="/dich-vu/{{$item->slug}}">{{$item->title}}</a>
+                                    <a href="/dich-vu/{{ $item->slug }}">{{ $item->title }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -109,22 +114,40 @@
                         <li class="nav-item bg-ani {{ Request::path() == 'lien-he' ? 'actives' : '' }}">
                             <a class="nav-link " href="/lien-he">{{ __('lang.contacts') }}</a>
                         </li>
+                        <li class="nav-item bg-ani {{ Request::path() == 'lien-he' ? 'actives' : '' }}">
+                            <a class="nav-link " href="/lien-he">{{ __('lang.contacts') }}</a>
+                        </li>
                         {{-- <li class="line"></li> --}}
                     </ul>
-                    <form class="form-inline my-2 my-lg-0" action="{{ route('search.product') }}">
-                        <!-- <input class="form-control mr-sm-2 search-input" type="search" placeholder="Nhập từ khóa tìm kiếm..." aria-label="Search">
-                        <button style="    border-radius: 9px; padding: 3px;" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> -->
-
-                        <div id="search">
-                            <input type="text" name="q" id="keyword" class="form-control mr-sm-2 search-input"
-                                type="search" placeholder="{{ __('lang.search') }}..." aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"
-                                    aria-hidden="true"></i></button>
-                        </div>
-                    </form>
-
                 </div>
             </nav>
+
+        </div>
+        <div class="bottom-header bg-green">
+            <div class="container">
+                <ul class="list-category">
+                    <li><a href="">Da Nám</a></li>
+                    <li><a href="">Da mụn</a></li>
+                    <li><a href="">Tóc</a></li>
+                    <li><a href="">Môi</a></li>
+                    <li><a href="">Mắt</a></li>
+                    <li><a href="">Răng</a></li>
+                    <li><a href="">Làm đẹp</a></li>
+                    <li><a href="">
+                            <form class="form-inline my-2 my-lg-0" action="{{ route('search.product') }}">
+                                <!-- <input class="form-control mr-sm-2 search-input" type="search" placeholder="Nhập từ khóa tìm kiếm..." aria-label="Search">
+                        <button style="    border-radius: 9px; padding: 3px;" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> -->
+
+                                <div id="search">
+                                    <input type="text" name="q" id="keyword" class="form-control mr-sm-2 search-input"
+                                        type="search" placeholder="{{ __('lang.search') }}..." aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
+                                            class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
+                            </form>
+                        </a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </header>

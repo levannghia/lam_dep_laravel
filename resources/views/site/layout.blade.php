@@ -109,6 +109,7 @@ $mxh_top = DB::table('photos')
     {!! $settings['ANALYTICS'] !!}
     {!! $settings['WEB_MASTER_TOOL'] !!}
     {!! $settings['HEAD_JS'] !!}
+    
 </head>
 
 <body class="preloading">
