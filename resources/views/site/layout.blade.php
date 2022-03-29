@@ -109,6 +109,7 @@ $mxh_top = DB::table('photos')
     {!! $settings['ANALYTICS'] !!}
     {!! $settings['WEB_MASTER_TOOL'] !!}
     {!! $settings['HEAD_JS'] !!}
+    
 </head>
 
 <body class="preloading">
@@ -163,15 +164,17 @@ $mxh_top = DB::table('photos')
         });
 
         $(window).scroll(function() {
-            if($(this).scrollTop() >= showTopTop){
+            if ($(this).scrollTop() >= showTopTop) {
                 $('#toptop').fadeIn();
-            }else{
+            } else {
                 $('#toptop').fadeOut();
             }
         });
 
-        $('#toptop').click(function(){
-            $('html, body').animate({scrollTop: 0}, 'slow');
+        $('#toptop').click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 'slow');
         });
 
         (function($) {

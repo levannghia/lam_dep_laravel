@@ -20,14 +20,179 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
         <div class="container">
             <!-- Banner - menu -->
             {{-- silder --}}
-            @include('site.inc.slide')
+            {{-- @include('site.inc.slide') --}}
             <!-- content -->
-            <h2 class="product-new">{{__('lang.about_us')}}</h2>
+            {{-- <h2 class="product-new">{{__('lang.about_us')}}</h2>
             <div class="pr">
                 <p>{!! substr($pageGT->content, 0, 900) !!}</p>
                 <a class="xt" href="/gioi-thieu">{{ __('lang.more') }}</a>
             </div>
-            <div class="clears"></div>
+            <div class="clears"></div> --}}
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="a">
+                        <div id="socialsticky" class="vertical-social-i" style="left: 142.6px;">
+                            <ul class="ssk-sticky">
+                                <li><a href="#" class="fb ssk ssk-facebook"></a>
+                                </li>
+                                <li><a href="#" class="tw ssk ssk-twitter"></a></li>
+
+                                <li><a href="#" class="lnk ssk ssk-pinterest"></a>
+                                </li>
+                                <li><a href="#" class="pin ssk ssk-linkedin"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="list-title">
+                        <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a
+                                    itemprop="item" href="https://www.femina.in"><span itemprop="name">Home</span>
+                                    <meta itemprop="position" content="1">
+                                </a></li>
+
+                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a
+                                    itemprop="item" href="https://www.femina.in/beauty"><span itemprop="name">
+                                        Làm đẹp </span>
+                                    <meta itemprop="position" content="2">
+                                </a></li>
+
+
+                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a
+                                    itemprop="item" href="https://www.femina.in/beauty/hair"><span itemprop="name">
+                                        Leather </span>
+                                    <meta itemprop="position" content="3">
+                                </a></li>
+
+
+                            <li class="active">
+                                <span class="title-name">
+                                    Dịch vụ trị mụn - tại sao da bạn lại bị mụn </span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="product-content">
+                        <h1 class="title-content">Dịch vụ trị mụn - tại sao da bạn lại bị mụn</h1>
+                        <p class="post-admin">by <a href="">Thẩm Mỹ Kim Liên</a>&#160;|&#160;<span>April 9, 2022,
+                                20:36</span> </p>
+                        <div class="col-sm-12 img-content">
+                            <img src="{{ asset('public/site/images/kamatn1jpg1648182089.jpg') }}" alt="">
+                        </div>
+                        <div class="desc">
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit consequatur maiores, minus
+                                tempora et voluptatem impedit deleniti nisi necessitatibus mollitia esse ut nemo, quo error
+                                facere culpa odio ullam cum.</p>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h1 class="title-content">Dịch vụ trị mụn - tại sao da bạn lại bị mụn</h1>
+                        <p class="post-admin">by <a href="">Thẩm Mỹ Kim Liên</a>&#160;|&#160;<span>April 9, 2022,
+                                20:36</span> </p>
+                        <div class="col-sm-12 img-content">
+                            <img src="{{ asset('public/site/images/kamatn1jpg1648182089.jpg') }}" alt="">
+                        </div>
+                        <div class="desc">
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit consequatur maiores, minus
+                                tempora et voluptatem impedit deleniti nisi necessitatibus mollitia esse ut nemo, quo error
+                                facere culpa odio ullam cum.</p>
+                        </div>
+                    </div>
+                    <div class="read-more"><a href="">Xem Thêm</a></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="right-content">
+                        <div class="popular">
+                            <h6>Tin nổi bật</h6>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                        aria-controls="home" aria-selected="true">Ngày</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                                        aria-selected="false">Tuần</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+                                        aria-selected="false">Tháng</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="col col-md-4 left-popular-img">
+                                            <a href="/"><img
+                                                    src="{{ asset('public/site/images/bao-ve-muc-tieu-co-dinh-45193922_170x128.png') }}"
+                                                    alt=""></a>
+                                        </div>
+                                        <div class="col col-md-8 right-title-news">
+                                            <p class="title-news">Tiêu đề 1</p>
+                                            <p class="des-news">Kama Ayurveda’s New Bringadi Masks Are Perfect</p>
+                                        </div>
+                                        <div class="col col-md-4 left-popular-img">
+                                            <a href="/"><img
+                                                    src="{{ asset('public/site/images/bao-ve-muc-tieu-co-dinh-45193922_170x128.png') }}"
+                                                    alt=""></a>
+                                        </div>
+                                        <div class="col col-md-8 right-title-news">
+                                            <p class="title-news">Tiêu đề 2</p>
+                                            <p class="des-news">Kama Ayurveda’s New Bringadi Masks Are Perfect</p>
+                                        </div>
+                                        <div class="col col-md-4 left-popular-img">
+                                            <a href="/"><img
+                                                    src="{{ asset('public/site/images/bao-ve-muc-tieu-co-dinh-45193922_170x128.png') }}"
+                                                    alt=""></a>
+                                        </div>
+                                        <div class="col col-md-8 right-title-news">
+                                            <p class="title-news">Tiêu đề 3</p>
+                                            <p class="des-news">Kama Ayurveda’s New Bringadi Masks Are Perfect</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...
+                                </div>
+                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conact-form">
+                            <h6>Đặt lịch hẹn, tư vấn</h6>
+                            <form class="col-sm-12 form-contact validation-contact"
+                                id="form_contact">
+                                @csrf
+                                <div class="row">
+                                    <div class="input-contact col-sm-12">
+                                        <input type="text" class="form-control" id="ten" name="name"
+                                            value="{{ old('name') }}" placeholder="{{ __('lang.fullname') }}" required>
+                                        <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
+                                        <p class="error_name mt-1 mb-0" style="color:#EF8D21;display:none;"></p>
+                                    </div>
+                                    <div class="input-contact col-sm-12">
+                                        <input type="number" class="form-control" id="dienthoai" name="phone"
+                                            placeholder="{{ __('lang.phone_number') }}" required
+                                            value="{{ old('phone') }}">
+                                        <div class="invalid-feedback">Vui lòng nhập số điện thoại</div>
+                                        <p class="error_sdt mt-1 mb-0" style="color:#EF8D21;display:none;"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-contact">
+                                    <textarea rows="4" class="form-control-te" id="noidung" name="content" placeholder="{{ __('lang.content') }}"
+                                        required>{{ old('content') }}</textarea>
+                                    <div class="invalid-feedback">Vui lòng nhập nội dung</div>
+                                    <p class="error_content mt-1 mb-0" style="color:#EF8D21;display:none;"></p>
+                                </div>
+                                
+                                <input type="button" class="btn btn-leather" name="submit-contact" id="btn_send"
+                                    value="{{ __('lang.btnSubmit') }}">
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="service-blocks">
                 <div class="owl-carousel owl-theme">
                     @foreach ($service as $key => $item)
@@ -38,12 +203,12 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                                     alt="{{ $item->title }}">
                                 <div class="card-body">
                                     <p class="card-title" style="text-transform: uppercase;"><a
-                                            href="/dich-vu/{{$item->slug}}">{{ $item->title }}</a></p>
+                                            href="/dich-vu/{{ $item->slug }}">{{ $item->title }}</a></p>
                                     <p class="card-text">
                                         @if (strlen($item->description) > 122)
-                                        {{ substr($item->description, 0, 122) . '...' }}
+                                            {{ substr($item->description, 0, 122) . '...' }}
                                         @else
-                                        {{$item->description}}
+                                            {{ $item->description }}
                                         @endif
                                     </p>
                                 </div>
@@ -83,7 +248,7 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                                     @endforeach
                                 </div>
                             </div>
-                            <img src="{{ asset('public/upload/images/photo/thumb/'.$bannerContent->photo) }}" alt="">
+                            <img src="{{ asset('public/upload/images/photo/thumb/' . $bannerContent->photo) }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -200,8 +365,8 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                                 <div class="col-md-3 criteria-option col-6 img-flucol-6">
                                     <div class="img_all">
                                         <img class="eeee"
-                                                src="{{ asset('public/upload/images/photo/thumb/' . $item->photo) }}"
-                                                alt="{{ asset('public/upload/images/photo/thumb/' . $item->photo) }}">
+                                            src="{{ asset('public/upload/images/photo/thumb/' . $item->photo) }}"
+                                            alt="{{ asset('public/upload/images/photo/thumb/' . $item->photo) }}">
                                     </div>
                                 </div>
                             </div>
@@ -278,7 +443,7 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
             $('.album-hinh-anh .owl-carousel').owlCarousel({
                 loop: true,
                 margin: 10,
-                dots:false,
+                dots: false,
                 nav: false,
                 autoplay: true,
                 autoplayTimeout: 5000,
