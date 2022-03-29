@@ -26,4 +26,5 @@ return [
     'address' => 'Address',
     'theme' => 'Theme',
     'content' => 'Content',
+    'policy' => 'Policy',
 ];

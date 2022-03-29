@@ -112,9 +112,9 @@ $mxh_top = DB::table('photos')
 </head>
 
 <body class="preloading">
-    <div class="load">
+    {{-- <div class="load">
         <img src="{{ asset('public/site/images/load.gif') }}" alt="">
-    </div>
+    </div> --}}
     {{-- header --}}
     @include('site.inc.header')
 
@@ -154,6 +154,9 @@ $mxh_top = DB::table('photos')
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-simplyscroll/2.1.1/jquery.simplyscroll.css" media="all"
         type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script type="text/javascript">
         var showTopTop = 200;
 
@@ -163,15 +166,17 @@ $mxh_top = DB::table('photos')
         });
 
         $(window).scroll(function() {
-            if($(this).scrollTop() >= showTopTop){
+            if ($(this).scrollTop() >= showTopTop) {
                 $('#toptop').fadeIn();
-            }else{
+            } else {
                 $('#toptop').fadeOut();
             }
         });
 
-        $('#toptop').click(function(){
-            $('html, body').animate({scrollTop: 0}, 'slow');
+        $('#toptop').click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 'slow');
         });
 
         (function($) {

@@ -54,11 +54,10 @@ img {
 }
 
 body {
-    /* overflow: hidden; */
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #333;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7;
+    font-size: 15px;
+    color: #1e1e1e;
 }
 
 #toptop:hover {
@@ -259,7 +258,7 @@ div#navbarNav ul li.line {
     background: url(/public/site/images/dc.png) no-repeat left center;
     padding-left: 20px;
     display: block;
-    font-family: 'RobotoRegular';
+    /* font-family: 'RobotoRegular'; */
     font-size: 16px;
     margin-bottom: 0px;
     padding: 6px 0;
@@ -627,7 +626,7 @@ a:hover {
     color: #28a745;
     text-transform: uppercase;
     border-bottom: 1px white solid;
-    font-family: 'ro-r';
+    /* font-family: 'ro-r'; */
     src: url("/public/site/fonts/Roboto-Regular.ttf");
     font-style: normal;
     font-display: block;
@@ -647,7 +646,7 @@ a:hover {
 }
 
 .standard-content {
-    font-family: 'quick-r';
+    /* font-family: 'quick-r'; */
     src: url("/public/site/fonts/Quicksand-Regular.ttf");
     font-style: normal;
     font-display: block;
@@ -672,7 +671,7 @@ a:hover {
     margin-top: 40px;
     text-align: center;
     color: #007c42;
-    font-family: 'fonta';
+    /* font-family: 'fonta'; */
     text-transform: uppercase;
     position: relative;
     padding-bottom: 10px;
@@ -757,7 +756,7 @@ h4:active {
 div.copy-right .cop-l {
     /* height: 40px; */
     line-height: 10px;
-    color: #fff;
+    color: #b6b6b6;
     font-size: 12px;
     width: 470px;
     float: left;
@@ -1082,7 +1081,7 @@ div.copy-right .cop-l {
     cursor: pointer;
     text-transform: capitalize;
     color: #025002;
-    font-family: 'svn-pro';
+    /* font-family: 'svn-pro'; */
     src: url("/public/site/fonts/SVN-Product Sans Regular.ttf");
     font-style: normal;
     font-display: block;
@@ -1109,7 +1108,7 @@ div.copy-right .cop-l {
     margin-bottom: 0px;
     margin-top: 3px;
     text-transform: uppercase;
-    font-family: 'svn-pro';
+    /* font-family: 'svn-pro'; */
     src: url("/public/site/fonts/SVN-Product Sans Regular.ttf");
     font-style: normal;
     font-display: block;
@@ -1314,7 +1313,7 @@ div.copy-right .cop-l {
 
 .news-events h2 {
     color: #006600;
-    font-family: 'utm-avob';
+    /* font-family: 'utm-avob'; */
     src: url("/public/site/fonts/UTM AvoBold.ttf");
     font-style: normal;
     font-display: block;
@@ -1430,7 +1429,7 @@ blockquote {
 
 blockquote .name-customer {
     font-size: 15px;
-    font-family: georgia;
+    /* font-family: georgia; */
     border: none;
     position: relative;
     margin: 40px 0 0 0;
@@ -1449,7 +1448,7 @@ blockquote .name-customer:before {
 
 .address {
     font-size: 15px;
-    font-family: georgia;
+    /* font-family: georgia; */
     font-weight: bold;
 }
 
@@ -1471,7 +1470,7 @@ blockquote .name-customer:before {
     color: white;
     margin-bottom: 0;
     margin-left: 10px;
-    font-family: 'quick-r';
+    /* font-family: 'quick-r'; */
     src: url("/public/site/fonts/Quicksand-Regular.ttf");
     font-style: normal;
     font-display: block;
@@ -1479,7 +1478,7 @@ blockquote .name-customer:before {
 
 .color-p p {
     color: white;
-    font-family: 'gmv-din';
+    /* font-family: 'gmv-din'; */
     src: url("/public/site/fonts/GMV_DIN_Pro-Light.ttf");
     font-style: normal;
     font-display: block;
@@ -1527,12 +1526,14 @@ blockquote .name-customer:before {
 .Policy a {
     display: block;
     line-height: 2;
+    border-bottom: 1px solid #373737;
+    width: 80%;
 }
 
 .title-company {
     color: #ffcc00;
     text-align: center;
-    font-family: 'utm-avob';
+    /* font-family: 'utm-avob'; */
     src: url("/public/site/fonts/UTM AvoBold.ttf");
     font-style: normal;
     font-display: block;
@@ -1565,31 +1566,39 @@ blockquote .name-customer:before {
 
 footer {
     padding: 40px 0;
-    background-image: url(/public/site/images/ft_bg.png);
+    /* background-image: url(/public/site/images/ft_bg.png); */
+    background: #202020;
     margin: auto;
     color: #fff;
     background-size: 100% 100%;
     margin-top: -10px;
 }
 
+.footer-item-border{
+    width: 30%;
+    border-left: 1px solid #373737;
+}
 .footer-item h4 {
     font-weight: bold;
-    color: #FFFF00 !important;
+    color: #e80b6f !important;
 }
 
 .footer-item a,
 .footer-item h4,
 .footer-item p {
-    color: white;
+    color: #b6b6b6;
     text-align: left;
     /* font-family: 'quick-r';
     src: url("/public/site/fonts/Quicksand-Regular.ttf");
     font-style: normal;
     font-display: block; */
 }
-
+.footer-item a:hover{
+    color: #e80b6f;
+}
 .footer-item h4 {
     text-transform: uppercase;
+    font-weight: 400;
 }
 
 .carousel {
@@ -1688,7 +1697,7 @@ nav.navbar {
 
 .detail-product-link {
     background: linear-gradient(#dd1818, #333333);
-    font-family: 'PT Sans', sans-serif;
+    /* font-family: 'PT Sans', sans-serif; */
     text-align: center;
     overflow: hidden;
     position: relative;

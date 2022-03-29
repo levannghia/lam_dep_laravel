@@ -6,10 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
-use App\Models\Category_LV1;
+use App\Http\Controllers\Helpers\Recusive;
 
 class CategoryController extends Controller
 {
+    private $category;
+
+    public function __construct(Category $category)
+    {
+        $this->category = $category;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +23,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
+        $category = $this->category->orderBy('stt','ASC')->get();
         $row = json_decode(json_encode([
             "title" => "Categories",
             "desc" => "Danh mục sản phẩm"
         ]));
-       
+
+        
         return view('admin.category.index',compact('category','row'));
     }
 
@@ -37,8 +44,10 @@ class CategoryController extends Controller
             "title" => "Create categories",
             "desc" => "Thêm danh mục"
         ]));
-        $category_lv1 = Category_LV1::orderBy('stt','ASC')->get();
-        return view('admin.category.add', compact('row','category_lv1'));
+        $data = $this->category->all();
+        $recusive = new Recusive($data);
+        $htmlOption = $recusive->categoryRecusive($parent_id='');
+        return view('admin.category.add', compact('row','htmlOption'));
     }
 
     /**
@@ -66,10 +75,8 @@ class CategoryController extends Controller
 
         $category = new Category;
         $category->name = $request->name;
-        $category->category_lv1_id = $request->category_lv1_id;
+        $category->parent_id = $request->parent_id;
         $category->status = $request->status;
-        $category->description = $request->description;
-        $category->keywords = $request->keywords;
         $category->slug = $request->slug;
         $category->stt = $request->stt;
         $category->noi_bac = 0;
@@ -101,15 +108,16 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        
-        $category = Category::find($id);
+        $category = $this->category->find($id);
+        $data = $this->category->all();
         if(isset($category)){
             $row = json_decode(json_encode([
                 "title" => "Update category",
                 "desc" => "Cập nhật - " . $category->name
             ]));
-            $category_lv1 = Category_LV1::orderBy('stt','ASC')->get();
-            return view('admin.category.edit', compact('category','row','category_lv1'));
+            $recusive = new Recusive($data);
+            $htmlOption = $recusive->categoryRecusive($category->parent_id);
+            return view('admin.category.edit', compact('category','row','htmlOption'));
         }
         return abort(404);
     }
@@ -137,12 +145,10 @@ class CategoryController extends Controller
                 "slug.max" => "Slug không quá 255 ký tự",
                 "status.required" => "Vui lòng chọn trạng thái"
         ]);
-        $category->category_lv1_id = $request->category_lv1_id;
+        $category->parent_id = $request->parent_id;
         $category->stt = $request->stt;
-        $category->keywords = $request->keywords;
         $category->name = $request->name;
         $category->status = $request->status;
-        $category->description = $request->description;
         $category->slug = $request->slug;
         
         if($category->save()){

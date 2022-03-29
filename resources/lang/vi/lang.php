@@ -20,10 +20,11 @@ return [
     'search' => 'Tìm kiếm',
     'btnSubmit' => 'Gửi',
     'btnRetype' => 'Nhập lại',
-    'about_us' => 'Giới thiệu về chúng tôi',
+    'about_us' => 'Về chúng tôi',
     'fullname' => 'Họ tên',
     'phone_number' => 'Số điện thoại',
     'address' => 'Địa chỉ',
     'theme' => 'Chủ đề',
     'content' => 'Nội dung',
+    'policy' => 'Chính sách',
 ];

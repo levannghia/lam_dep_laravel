@@ -24,17 +24,10 @@
                                     value="{{ old('slug', $category->slug) }}" placeholder="* slug">
                             </div>
                             <div class="form-group">
-                                <label for="exampleTextarea1">Keywords</label>
-                                <textarea class="form-control" id="exampleTextarea1" rows="4"
-                                    name="keywords">{{ old('keywords', $category->keywords) }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleTextarea1">Danh mục cấp 1</label>
-                                <select class="js-example-basic-multiple w-100" name="category_lv1_id">
-                                    <option value="1"><-------Vui lòng chọn danh mục lv1-------></option>
-                                    @foreach ($category_lv1 as $item)
-                                    <option value="{{$item->id}}" {{$item->id == $category->category_lv1_id ? "selected" : ""}}>{{$item->title}}</option>
-                                    @endforeach
+                                <label for="exampleTextarea1">Danh mục cha</label>
+                                <select class="js-example-basic-multiple w-100" name="parent_id">
+                                    <option value="0">Chọn danh mục cha</option>
+                                    {!! $htmlOption !!}
                                 </select>
                             </div>
                             {{-- <div class="form-group">
@@ -43,11 +36,11 @@
                                         value="{{ old('price', $category->price) }}"
                                         placeholder="* Giá phòng">
                                 </div> --}}
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="exampleTextarea1">Mô tả</label>
                                 <textarea class="form-control" id="exampleTextarea1" rows="4"
                                     name="description">{{ old('description', $category->description) }}</textarea>
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <select class="js-example-basic-multiple w-100" name="status">
                                     <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>Hiện</option>

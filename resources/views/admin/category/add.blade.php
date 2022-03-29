@@ -25,29 +25,17 @@
                                 <input type="text" class="form-control" id="convert_slug" name="slug"
                                     value="{{ old('slug') }}" placeholder="* slug">
                             </div>
-                            <div class="form-group">
-                                <label for="exampleTextarea1">Keyword (seo)</label>
-                                <textarea class="form-control" id="exampleTextarea1" rows="4"
-                                    name="keywords">{{old('keywords')}}</textarea>
-                            </div>
                             {{-- <div class="form-group">
                                 <label for="exampleInputEmail1">Giá phòng</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1" name="price"
                                     value="{{ old('price') }}" placeholder="* Giá phòng">
                             </div> --}}
                             <div class="form-group">
-                                <label for="exampleTextarea1">Danh mục cấp 1</label>
-                                <select class="js-example-basic-multiple w-100" name="category_lv1_id">
-                                    <option value=""><-------Vui lòng chọn danh mục lv1-------></option>
-                                    @foreach ($category_lv1 as $item)
-                                    <option value="{{$item->id}}">{{$item->title}}</option>
-                                    @endforeach
+                                <label for="exampleTextarea1">Danh mục cha</label>
+                                <select class="js-example-basic-multiple w-100" name="parent_id">
+                                    <option value="0">Chọn danh mục cha</option>
+                                    {!! $htmlOption !!}
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleTextarea1">Mô tả</label>
-                                <textarea class="form-control" id="exampleTextarea1" rows="4"
-                                    name="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="exampleTextarea1">Trạng thái</label>

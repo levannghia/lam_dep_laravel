@@ -20,12 +20,12 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('id','DESC')->get();
+        $news = News::orderBy('id', 'DESC')->get();
         $row = json_decode(json_encode([
             "title" => "News",
             "desc" => "Tin tức"
         ]));
-        return view("admin.news.index",compact('news','row'));
+        return view("admin.news.index", compact('news', 'row'));
     }
 
     /**
@@ -42,7 +42,7 @@ class NewsController extends Controller
             "title" => "Create News",
             "desc" => "Thêm tin tức"
         ]));
-        return view("admin.news.add",compact('row','settings'));
+        return view("admin.news.add", compact('row', 'settings'));
     }
 
     /**
@@ -63,13 +63,13 @@ class NewsController extends Controller
             'slug' => 'required|unique:news,slug|max:255',
             'status' => 'required',
             'photo' => 'required|mimes:jpg,png,jpeg,gif'
-        ],[
-                "slug.required" => "Vui lòng nhập slug",
-                "slug.unique" => "Slug đã tồn tại",
-                "slug.max" => "Slug không quá 255 ký tự",
-                "status.required" => "Vui lòng chọn trạng thái",
-                "photo.required" => "Vui lòng thêm hình ảnh",
-                "photo.mimes" => "Chọn đúng đinh dạng hình ảnh: jpg, png, jpeg, gif"
+        ], [
+            "slug.required" => "Vui lòng nhập slug",
+            "slug.unique" => "Slug đã tồn tại",
+            "slug.max" => "Slug không quá 255 ký tự",
+            "status.required" => "Vui lòng chọn trạng thái",
+            "photo.required" => "Vui lòng thêm hình ảnh",
+            "photo.mimes" => "Chọn đúng đinh dạng hình ảnh: jpg, png, jpeg, gif"
         ]);
 
         $news = new News;
@@ -97,16 +97,15 @@ class NewsController extends Controller
             if ($file->getClientOriginalExtension() != "svg") {
                 $image_resize = Image::make($file->getRealPath());
                 $thumb_size = json_decode($settings["THUMB_SIZE_NEWS"]);
-                $image_resize->fit($thumb_size->width,$thumb_size->height);
+                $image_resize->fit($thumb_size->width, $thumb_size->height);
                 $image_resize->save('public/upload/images/news/thumb/' . $file_name);
             }
             $news->photo = $file_name;
-    
         }
-        if($news->save()){
-            return redirect()->back()->with(["type"=>"success","message"=>"Thêm bài viết thành công"]);
-        }else{
-            return back()->withInput()->with(["type"=>"danger","message"=>"Thêm bài viết thất bại"]);
+        if ($news->save()) {
+            return redirect()->back()->with(["type" => "success", "message" => "Thêm bài viết thành công"]);
+        } else {
+            return back()->withInput()->with(["type" => "danger", "message" => "Thêm bài viết thất bại"]);
         }
     }
 
@@ -129,23 +128,23 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        
+
         $settings = Config::all(['name', 'value'])->keyBy('name')->transform(function ($setting) {
             return $setting->value; // return only the value
         })->toArray();
 
-        $news_vi = DB::table('news')->join('news_translations','news_translations.news_id','=','news.id')
-        ->where('news_translations.news_id',$id)->where('news_translations.locale','vi')->first();
+        $news_vi = DB::table('news')->join('news_translations', 'news_translations.news_id', '=', 'news.id')
+            ->where('news_translations.news_id', $id)->where('news_translations.locale', 'vi')->first();
         // dd($news_vi['news_id']);
-        $news_en = DB::table('news')->join('news_translations','news_translations.news_id','=','news.id')
-        ->where('news_translations.news_id',$id)->where('news_translations.locale','en')->first();
-        
+        $news_en = DB::table('news')->join('news_translations', 'news_translations.news_id', '=', 'news.id')
+            ->where('news_translations.news_id', $id)->where('news_translations.locale', 'en')->first();
+
         $row = json_decode(json_encode([
             "title" => "Update news",
             "desc" => "Chỉnh sửa tin tức"
         ]));
 
-        return view("admin.news.edit",compact('news_vi','news_en','row', 'settings'));
+        return view("admin.news.edit", compact('news_vi', 'news_en', 'row', 'settings'));
     }
 
     /**
@@ -163,17 +162,17 @@ class NewsController extends Controller
         })->toArray();
         $news = News::find($id);
         $request->validate([
-            'slug' => 'required|unique:news,slug,'.$news->id.'|max:255',
+            'slug' => 'required|unique:news,slug,' . $news->id . '|max:255',
             'status' => 'required',
             'photo' => 'mimes:jpg,png,jpeg,gif'
-        ],[
-                "slug.required" => "Vui lòng nhập slug",
-                "slug.unique" => "Slug đã tồn tại",
-                "slug.max" => "Slug không quá 255 ký tự",
-                "status.required" => "Vui lòng chọn trạng thái",
-                "photo.mimes" => "Chọn đúng đinh dạng hình ảnh: jpg, png, jpeg, gif"
+        ], [
+            "slug.required" => "Vui lòng nhập slug",
+            "slug.unique" => "Slug đã tồn tại",
+            "slug.max" => "Slug không quá 255 ký tự",
+            "status.required" => "Vui lòng chọn trạng thái",
+            "photo.mimes" => "Chọn đúng đinh dạng hình ảnh: jpg, png, jpeg, gif"
         ]);
-       
+
         $news->fill([
             'en' => [
                 'title' => $data['title:en'],
@@ -190,12 +189,12 @@ class NewsController extends Controller
         $news->status = $request->status;
         $news->keywords = $request->keywords;
         $news->slug = $request->slug;
-        
+
         if ($request->hasFile('photo')) {
             $file = $request->photo;
-            $pathDel = 'public/upload/images/news/thumb/'.$news->photo;
-    
-            if(file_exists($pathDel)){
+            $pathDel = 'public/upload/images/news/thumb/' . $news->photo;
+
+            if (file_exists($pathDel)) {
                 unlink($pathDel);
             }
             $file = $request->photo;
@@ -205,7 +204,7 @@ class NewsController extends Controller
             if ($file->getClientOriginalExtension() != "svg") {
                 $image_resize = Image::make($file->getRealPath());
                 $thumb_size = json_decode($settings["THUMB_SIZE_NEWS"]);
-                $image_resize->fit($thumb_size->width,$thumb_size->height);
+                $image_resize->fit($thumb_size->width, $thumb_size->height);
 
                 $image_resize->save('public/upload/images/news/thumb/' . $file_name);
             }
@@ -213,10 +212,10 @@ class NewsController extends Controller
             // $file->move("public/upload/images/admins/large", $file_name);
             $news->photo = $file_name;
         }
-        if($news->save()){
-            return redirect()->back()->with(["type"=>"success","message"=>"Cập nhật thành công"]);
-        }else{
-            return back()->withInput()->with(["type"=>"danger","message"=>"Cập nhật thất bại"]);
+        if ($news->save()) {
+            return redirect()->back()->with(["type" => "success", "message" => "Cập nhật thành công"]);
+        } else {
+            return back()->withInput()->with(["type" => "danger", "message" => "Cập nhật thất bại"]);
         }
     }
 
@@ -229,17 +228,17 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $data = News::find($id);
-        $pathDel = 'public/upload/images/news/thumb/'.$data->photo;
-        
-        if($data->delete()){
-            if(file_exists($pathDel)){
+        $pathDel = 'public/upload/images/news/thumb/' . $data->photo;
+
+        if ($data->delete()) {
+            if (file_exists($pathDel)) {
                 unlink($pathDel);
             }
             return response()->json([
                 'status' => 1,
                 'msg' => 'Xóa bài viết thành công'
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => 0,
                 'msg' => 'Xóa bài viết thất bại'
@@ -247,7 +246,7 @@ class NewsController extends Controller
         }
     }
 
-    public function noiBac($id,$noiBac)
+    public function noiBac($id, $noiBac)
     {
         $data = News::find($id);
         $data->noi_bac = $noiBac;
@@ -264,7 +263,7 @@ class NewsController extends Controller
         }
     }
 
-    public function status($id,$status)
+    public function status($id, $status)
     {
         $data = News::find($id);
         $data->status = $status;
@@ -281,7 +280,8 @@ class NewsController extends Controller
         }
     }
 
-    public function deleteAll($id = "") {
+    public function deleteAll($id = "")
+    {
         $list_id = json_decode($id);
         //var_dump($list_id);
         //die();
@@ -291,8 +291,8 @@ class NewsController extends Controller
         if (count($list_id) == 1 && isset($list_id[0]->id)) {
             $news = News::find($list_id[0]->id);
             if ($news->delete()) {
-                $pathDel = 'public/upload/images/news/thumb/'.$news->photo;
-                if(file_exists($pathDel)){
+                $pathDel = 'public/upload/images/news/thumb/' . $news->photo;
+                if (file_exists($pathDel)) {
                     unlink($pathDel);
                 }
                 return redirect()->route("admin.news.index")->with(["type" => "success", "message" => "Xoá thành công!"]);
@@ -303,8 +303,8 @@ class NewsController extends Controller
             foreach ($list_id as $key => $value) {
                 $news = News::find($value->id);
                 $news->delete();
-                $pathDel = 'public/upload/images/news/thumb/'.$news->photo;
-                if(file_exists($pathDel)){
+                $pathDel = 'public/upload/images/news/thumb/' . $news->photo;
+                if (file_exists($pathDel)) {
                     unlink($pathDel);
                 }
             }

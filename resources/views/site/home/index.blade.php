@@ -60,12 +60,12 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                         <div class="box-tintuc-ct-mt">
                             <div class="box-tintuc-ct-mt1">
                                 <div class="box-tintuc-ten-mt1">
-                                    <p>{{ $recruit->title }}</p>
+                                    <p>{{ isset($recruit) ?  $recruit->title : '' }}</p>
                                 </div>
                                 <div class="mota-tintuc-mt">
-                                    {{ $recruit->description }}
+                                    {{ isset($recruit) ? $recruit->description : '' }}
                                 </div>
-                                <a href="/tuyen-dung/{{ $recruit->slug }}"> {{ __('lang.more') }} ...</a>
+                                <a href="/tuyen-dung/{{ isset($recruit) ? $recruit->slug : ''}}"> {{ __('lang.more') }} ...</a>
                                 <div class="clear"></div>
                             </div>
                         </div>

@@ -249,8 +249,7 @@ ul.navbar-nav.ml-auto {
 }
 
 div.copy-right {
-    /* background: #0051ab; */
-    border-top: 1px rgba(255, 255, 255, 0.41) solid;
+    /* border-top: 1px rgba(255, 255, 255, 0.41) solid; */
     line-height: 40px;
 }
 
@@ -273,7 +272,7 @@ div#lienket {
 div.copy-right .cop-r {
     /* height: 40px; */
     /* line-height: 40px; */
-    color: #fff;
+    color: #b6b6b6;
     font-size: 14px;
     text-align: right;
     width: 350px;

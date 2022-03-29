@@ -132,18 +132,17 @@ $counter = DB::table('counter')->count();
                 </p> --}}
 
             </div>
-            <div class="col-md-4 Policy footer-item" style="padding-left: 100px;">
-                <h4>{{ __('lang.service') }}</h4>
-                @foreach ($serviceFooter as $item)
-                    <a href="/dich-vu/{{ $item->slug }}">{{ $item->title }}</a>
-                @endforeach
-
+            <div class="col-md-4 Policy footer-item footer-item-border" style="padding-left: 100px;">
+                <h4>{{ __('lang.policy') }}</h4>
+                    <a href="/khach-hang-than-thiet">Khách hàng thân thiết</a>
+                    <a href="/thoi-gian-hoat-dong">Thời gian hoạt động</a>
+                    <a href="/tu-van">Tư vấn</a>
             </div>
-            <div class="col-md-4 footer-item">
+            <div class="col-md-4 footer-item footer-item-border">
                 <h4>Fanpage</h4>
                 <p class="map">
                 <div class="fb-page" data-href="{{ $settings['FANPAGE'] }}" data-tabs="timeline" data-width=""
-                    data-height="300" data-small-header="false" data-adapt-container-width="true"
+                    data-height="250" data-small-header="false" data-adapt-container-width="true"
                     data-hide-cover="false" data-show-facepile="true">
                     <blockquote cite="{{ $settings['FANPAGE'] }}" class="fb-xfbml-parse-ignore"><a
                             href="{{ $settings['FANPAGE'] }}"></a></blockquote>

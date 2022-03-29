@@ -13,11 +13,13 @@
                         <div class="col-12">
                             <div class="table-responsive">
                                 <table id="order-listing" class="table">
+                                    {{-- <select name="" id="">
+                                        <option value="">á</option>
+                                    </select> --}}
                                     <thead>
                                         <tr>
                                             <th></th>
                                             <th>STT</th>
-                                            <th>Danh mục cấp 1</th>
                                             <th>Tên danh mục</th>                                       
                                             <th>Created at</th>
                                             <th>Nổi bật</th>
@@ -32,7 +34,6 @@
                                                     <th><input type="checkbox" name="check[]" value="{{ $item->id }}" />
                                                     </th>
                                                     <td>{{ $item->stt }}</td>
-                                                    <td>{{$item->title}}</td>
                                                     <td><a href="{{ route('admin.category.edit', $item->id) }}" title="Chỉnh sửa {{ $item->name }}">{{ $item->name }}</a></td>                                        
                                                     <td>{{ $item->created_at->diffForHumans() }}</td>
                                                     <td><input type="checkbox" name="check_noi_bac[]"

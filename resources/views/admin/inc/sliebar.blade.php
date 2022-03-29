@@ -7,7 +7,7 @@
             </a>
         </li>
 
-        {{-- <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
                 aria-controls="form-elements">
                 <i class="mdi mdi-view-headline menu-icon"></i>
@@ -16,12 +16,11 @@
             </a>
             <div class="collapse" id="form-elements">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="{{route('admin.category.lv1.index')}}">Danh mục cấp 1</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('admin.category.index')}}">Danh mục cấp 2</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('admin.product.index')}}">Sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('admin.category.index')}}">Danh mục</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="{{route('admin.product.index')}}">Sản phẩm</a></li> --}}
                 </ul>
             </div>
-        </li> --}}
+        </li>
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.service.index') }}">
@@ -89,12 +88,12 @@
                             href="{{ route('admin.photo.logo') }}">Logo</a></li>
                     <li class="nav-item"> <a class="nav-link"
                             href="{{ route('admin.photo.favicon') }}">Favicon</a></li>
-                    <li class="nav-item"> <a class="nav-link"
+                    {{-- <li class="nav-item"> <a class="nav-link"
                             href="{{ route('admin.photo.banner.content') }}">Banner content</a></li>
                     <li class="nav-item"> <a class="nav-link"
                             href="{{ route('admin.photo.banner.header') }}">Banner header</a></li>
                     <li class="nav-item"> <a class="nav-link" href="/admin/photo/slide">Slideshow</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/admin/photo/album">Album</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/photo/album">Album</a></li> --}}
                     <li class="nav-item"> <a class="nav-link" href="/admin/photo/partner">Đối tác</a></li>
                     <li class="nav-item"> <a class="nav-link" href="/admin/photo/social-top">Mạng xã hội
                             top</a></li>
