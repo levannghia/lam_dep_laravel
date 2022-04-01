@@ -82,12 +82,12 @@ $counter = DB::table('counter')->count();
 //  
 ?>
 
-<div class="blocks-contact">
+<div class="blocks-contact" style="padding-top: 20px;">
     <div class="container">
 
     </div>
 </div>
-<footer>
+<footer class="">
 
     {{-- <a class="btn-effect btn-contact-block" href="tel:{{ $settings['PHONE'] }}">
         <div class="child-nth-1 animate__animated animate__zoomIn"></div>
@@ -107,7 +107,7 @@ $counter = DB::table('counter')->count();
     <div class="container">
         <div class="row">
             <div class="col-md-4 footer-item">
-                <h4>{{ __('lang.company_introduction') }}</h4>
+                <h4>Giới thiệu</h4>
 
                 {!! $footer->content !!}
 

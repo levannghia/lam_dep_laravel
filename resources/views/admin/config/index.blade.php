@@ -41,9 +41,9 @@
                                             name="phan_trang_bai_viet">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleTextarea1">Hotline:</label>
-                                        <input type="text" class="form-control" value="{{ old('hotline',$settings['HOTLINE']) }}"
-                                            name="hotline">
+                                        <label for="exampleTextarea1">Mã nhận dạng kênh Youtube: <span><a target="_blank" href="https://www.youtube.com/account_advanced">(lấy mã nhận dạng)</a></span></label>
+                                        <input type="text" class="form-control" value="{{ old('id_channel',$settings['ID_CHANNEL_YOUTUBE']) }}"
+                                            name="id_channel">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleTextarea1">Website:</label>
@@ -51,7 +51,7 @@
                                             name="website">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleTextarea1">Điện thoại bàn:</label>
+                                        <label for="exampleTextarea1">Tên công ty:</label>
                                         <input type="text" class="form-control" value="{{ old('phoneTable',$settings['DTBAN']) }}"
                                             name="phoneTable">
                                     </div>

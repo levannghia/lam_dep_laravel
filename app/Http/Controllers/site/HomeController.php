@@ -52,23 +52,30 @@ class HomeController extends Controller
         $locale = Session::get('locale');
         $service = ServiceTranslation::join('services','services.id','=','service_translations.service_id')->where('service_translations.locale',$locale)
         ->where('services.status', 1)->where('services.noi_bac', 1)->orderBy('services.id', 'DESC')->get();
-        $review = Review::where('status',1)->where('noi_bac',1)->get();
         $slider = Photo::where('status',1)->where('type','slide')->orderBy('stt','ASC')->get();
         $album = Photo::where('status',1)->where('type','album')->orderBy('stt','ASC')->get();
         $bannerContent = Photo::where('status',1)->where('type','banner-content')->first();
-        // $video = Video::where('status',1)->where('noi_bac',1)->orderBy('id','DESC')->limit(3)->get();
-        // $news = News::where('status', 1)->where('noi_bac', 1)->orderBy('id', 'DESC')->get();
+        $news = News::where('status', 1)->where('noi_bac', 1)->orderBy('id', 'DESC')->paginate($settings['PHAN_TRANG_BAI_VIET']);
+        $newsDate = News::select('categories.parent_id','news.photo', 'news_translations.title', 'news.slug', 'categories.slug AS cateSlug')
+        ->join('news_translations','news_translations.news_id','=','news.id')
+        ->join('categories', 'categories.id', '=', 'news.category_id')->
+        where('news.status', 1)->where('news.noi_bac', 1)->where('news_translations.locale',$locale)->orderBy('news.id', 'DESC')->whereDate('news.created_at',Carbon::now())->get();
+        $newsMonth = News::select('categories.parent_id','news.photo', 'news_translations.title', 'news.slug', 'categories.slug AS cateSlug')
+        ->join('news_translations','news_translations.news_id','=','news.id')
+        ->join('categories', 'categories.id', '=', 'news.category_id')->
+        where('news.status', 1)->where('news.noi_bac', 1)->where('news_translations.locale',$locale)->orderBy('news.id', 'DESC')->whereMonth('news.created_at',Carbon::now()->month)->get();
+        $newsYear = News::select('categories.parent_id','news.photo', 'news_translations.title', 'news.slug', 'categories.slug AS cateSlug')
+        ->join('news_translations','news_translations.news_id','=','news.id')
+        ->join('categories', 'categories.id', '=', 'news.category_id')->
+        where('news.status', 1)->where('news.noi_bac', 1)->where('news_translations.locale',$locale)->orderBy('news.id', 'DESC')->whereYear('news.created_at',Carbon::now()->year)->get();
         $partner = Photo::where('type','partner')->where('status',1)->get();
         $standard = StandardTranslation::join('standards','standards.id','=','standard_translations.standard_id')->where('standard_translations.locale',$locale)
         ->where('standards.status', 1)->where('standards.status', 1)->orderBy('standards.stt', 'ASC')->get();
         $pageGT = PageTranslation::join('pages','pages.id','=','page_translations.page_id')->where('page_translations.locale',$locale)->where('pages.slug','gioi-thieu')->first();
-        // $category = Category::where('status', 1)->orderBy('stt', 'ASC')->get();
+        $categoryNoibat = Category::where('status',1)->where('noi_bac',1)->where('parent_id','!=',0)->orderBy('stt','ASC')->take(10)->get();
         $recruit = RecruitTranslation::join('recruits','recruits.id','=','recruit_translations.recruit_id')->where('recruit_translations.locale',$locale)
         ->where('recruits.status', 1)->where('recruits.noi_bac', 1)->orderBy('recruits.id', 'DESC')->first();
-        // $cate_product = Products::select('products.id','products.name','products.price','products.view','products.photo','categories.name AS category_name')
-        // ->join('categories', 'categories.id','=','products.category_id')
-        // ->where('categories.id',$category_noibac[0]['id'])->where('products.type',0)->where('products.status',1)->orderBy('categories.stt', 'ASC')->paginate($settings['PHAN_TRANG_PRODUCT']);
-        return view('site.home.index', compact('bannerContent','album','recruit','partner','slider','settings', 'image', 'pageGT', 'standard', 'service'));
+        return view('site.home.index', compact('newsYear','newsDate','newsMonth','news','categoryNoibat','bannerContent','album','recruit','partner','slider','settings', 'image', 'pageGT', 'standard', 'service'));
     }
 
     public function showMap(Request $request)

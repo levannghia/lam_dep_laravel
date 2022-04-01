@@ -27,33 +27,14 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-nav">
                 <div class="banner_image">
                     <a class="navbar-brand logo-img" href="/">
-                        <img src="{{ asset('public/site/images/logo_header.png') }}" alt="">
+                        <img src="{{ asset('public/upload/images/photo/thumb/' . $logo->photo) }}" alt="">
                     </a>
                 </div>
-
+                <h1>{{$settings['DTBAN']}}</h1>
                 <div class="collapse navbar-collapse phone-contact" id="navbarSupportedContent">
                     <div class="hot_head">
-                        {{-- <div class="hot_head1">
-                            <p>{{ $settings['PHONE'] . ' - ' . $settings['HOTLINE'] }}</p>
-                            <p>{{ $settings['DTBAN'] }}</p>
-                        </div>
-                        <div class="em_head">
-                            <p>{{ $settings['EMAIL'] }}</p>
-                        </div> --}}
-                        {{-- <div class="ngonngu">
-                            <a href="/lang/vi"><img src="{{ asset('public/site/images/vietnam.png') }}"
-                                    alt="Tiếng Việt"></a>
-                            <a href="/lang/en"><img src="{{ asset('public/site/images/anh.png') }}"
-                                    alt="Tiếng Anh"></a>
-                        </div> --}}
+                       
                     </div>
-
-                    <!-- <ul class="navbar-nav ml-auto">
-                        <a href="tel:0776768999" class="dt">
-                            <span>{{ $settings['HOTLINE'] }} <p class="tell-people">(CSKH)
-                                </p></span>
-                            <span>{{ $settings['PHONE'] }} <p class="tell-people">(BS. HUNG)</p></span></a>
-                    </ul> -->
                 </div>
             </nav>
 
@@ -74,18 +55,18 @@
                             <a class="nav-link  pd-li" href="/">
                                 </a>
                         </li> --}}
-                        <li class="nav-item bg-ani {{ Request::path() == '/' ? 'actives' : '' }}">
+                        <li class="nav-item bg-ani">
                             <a class="nav-link" href="/"><img
                                     src="{{ asset('public/site/images/Home-Icon.png') }}" alt=""></a>
                         </li>
-                        <li class="nav-item bg-ani ">
+                        <li class="nav-item bg-ani {{ Request::path() == '/' ? 'actives' : '' }}">
                             <a class="nav-link" href="/">Trang chủ</a>
                         </li>
-                        {{-- <li class="line"></li> --}}
+                        
                         <li class="nav-item bg-ani {{ Request::path() == 'gioi-thieu' ? 'actives' : '' }}">
                             <a class="nav-link " href="/gioi-thieu">{{ __('lang.about') }}</a>
                         </li>
-                        {{-- <li class="line"></li> --}}
+                        
                         <div class="dropdown">
                             <li class="nav-item bg-ani {{ Request::path() == 'dich-vu' ? 'actives' : '' }}">
                                 <a class="nav-link"
@@ -97,57 +78,49 @@
                                 @endforeach
                             </div>
                         </div>
-                        {{-- <li class="line"></li> --}}
+                        
+                        @foreach ($category as $item)
+                        @php
+                            $categoryChirld = DB::table('categories')->where('status',1)->where('parent_id',$item->id)->orderBy('stt','ASC');
+                        @endphp
+                        <div class="dropdown">
+                            <li class="nav-item bg-ani {{ request()->segment(2) == $item->slug ? 'actives' : '' }}">
+                                <a class="nav-link " href="/danh-muc/{{ $item->slug }}">{{ $item->name }}</a>
+                            </li>
+                            @if ($categoryChirld->count())
+                            <div class="dropdown-content">
+                                @foreach ($categoryChirld->get() as $value)
+                                    <a href="/danh-muc/{{$item->slug}}/{{ $value->slug }}">{{ $value->name }}</a>
+                                @endforeach
+                            </div>
+                            @endif
+                        </div>
+                        @endforeach
+                        
+                        
                         <li class="nav-item bg-ani {{ Request::path() == 'album' ? 'actives' : '' }}">
                             <a class="nav-link " href="{{ route('get.album') }}">{{ __('lang.album') }}</a>
                         </li>
-                        {{-- <li class="line"></li> --}}
+                        
                         <li class="nav-item bg-ani {{ Request::path() == 'tin-tuc' ? 'actives' : '' }}">
                             <a class="nav-link" href="{{ route('get.news') }}">{{ __('lang.news') }}</a>
                         </li>
-                        {{-- <li class="line"></li> --}}
+                        
                         <li class="nav-item bg-ani {{ Request::path() == 'tuyen-dung' ? 'actives' : '' }}">
                             <a class="nav-link"
                                 href="{{ route('get.recruit') }}">{{ __('lang.recruitment') }}</a>
                         </li>
-                        {{-- <li class="line"></li> --}}
+                        
                         <li class="nav-item bg-ani {{ Request::path() == 'lien-he' ? 'actives' : '' }}">
                             <a class="nav-link " href="/lien-he">{{ __('lang.contacts') }}</a>
                         </li>
-                        <li class="nav-item bg-ani {{ Request::path() == 'lien-he' ? 'actives' : '' }}">
-                            <a class="nav-link " href="/lien-he">{{ __('lang.contacts') }}</a>
-                        </li>
-                        {{-- <li class="line"></li> --}}
+                     
                     </ul>
                 </div>
             </nav>
 
         </div>
-        <div class="bottom-header bg-green">
-            <div class="container">
-                <ul class="list-category">
-                    <li><a href="">Da Nám</a></li>
-                    <li><a href="">Da mụn</a></li>
-                    <li><a href="">Tóc</a></li>
-                    <li><a href="">Môi</a></li>
-                    <li><a href="">Mắt</a></li>
-                    <li><a href="">Răng</a></li>
-                    <li><a href="">Làm đẹp</a></li>
-                    <li><a href="">
-                            <form class="form-inline my-2 my-lg-0" action="{{ route('search.product') }}">
-                                <!-- <input class="form-control mr-sm-2 search-input" type="search" placeholder="Nhập từ khóa tìm kiếm..." aria-label="Search">
-                        <button style="    border-radius: 9px; padding: 3px;" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> -->
-
-                                <div id="search">
-                                    <input type="text" name="q" id="keyword" class="form-control mr-sm-2 search-input"
-                                        type="search" placeholder="{{ __('lang.search') }}..." aria-label="Search">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
-                                            class="fa fa-search" aria-hidden="true"></i></button>
-                                </div>
-                            </form>
-                        </a></li>
-                </ul>
-            </div>
-        </div>
+        
     </div>
 </header>
+

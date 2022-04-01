@@ -54,8 +54,8 @@ class ConfigController extends Controller
         $phan_trang_bv->value = $request->phan_trang_bai_viet;
         $phan_trang_sp = Config::find($settings['PHAN_TRANG_PRODUCT']);
         $phan_trang_sp->value = $request->phan_trang_product;
-        $hotline = Config::find($settings['HOTLINE']);
-        $hotline->value = $request->hotline;
+        $idChannel = Config::find($settings['ID_CHANNEL_YOUTUBE']);
+        $idChannel->value = $request->id_channel;
         $head_js = Config::find($settings['HEAD_JS']);
         $head_js->value = $request->head_js;
         $seo_description = Config::find($settings['SEO_DISCRIPTION']);
@@ -68,7 +68,7 @@ class ConfigController extends Controller
         // $gioi_thieu_CT->value = $request->gioi_thieu_CT;
       
         if($phoneTable->save() && $phone->save() && $title->save() && $address->save() && $email->save() && $zalo->save() && $website->save() && $map_toa_do->save() && 
-        $map_iframe->save() && $analytics->save() && $master_tool->save() && $phan_trang_bv->save() && $phan_trang_sp->save() && $hotline->save() && $head_js->save() && 
+        $map_iframe->save() && $analytics->save() && $master_tool->save() && $phan_trang_bv->save() && $phan_trang_sp->save() && $idChannel->save() && $head_js->save() && 
         $seo_description->save() && $seo_keyword->save() && $seo_title->save() && $fanpage->save()){
             return redirect()->back()->with(["type"=>"success","message"=>"Cập nhật thành công"]);
         }else{

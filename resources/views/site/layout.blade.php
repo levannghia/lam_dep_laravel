@@ -3,6 +3,7 @@ use App\Models\Config;
 use App\Models\PageTranslation;
 use Illuminate\Support\Facades\Session;
 use App\Models\ServiceTranslation;
+use App\Models\Category;
 
 $locale = Session::get('locale');
 $serviceFooter = ServiceTranslation::join('services', 'services.id', '=', 'service_translations.service_id')
@@ -15,6 +16,10 @@ $serviceHeader = ServiceTranslation::join('services', 'services.id', '=', 'servi
     ->where('service_translations.locale', $locale)
     ->where('services.status', 1)
     ->orderBy('services.id', 'DESC')
+    ->get();
+$category = Category::where('status', 1)
+    ->where('parent_id', 0)
+    ->orderBy('stt', 'ASC')
     ->get();
 $footer = PageTranslation::join('pages', 'pages.id', '=', 'page_translations.page_id')
     ->where('page_translations.locale', $locale)
@@ -88,6 +93,11 @@ $mxh_top = DB::table('photos')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">
     <link rel="canonical" href="{{ $url }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+ 
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -96,6 +106,7 @@ $mxh_top = DB::table('photos')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     {{-- <link rel="stylesheet" href="{{ asset('public/site/css/default.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('public/site/css/nivo-slider.css') }}" type="text/css" media="screen" /> --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('public/site/css/contact.css?v-' . time()) }}">
     <link rel="stylesheet" href="{{ asset('public/site/css/style.css?v-' . time()) }}">
     {{-- <link rel="stylesheet" href="{{ asset('public/site/css/cart.css?v-' . time()) }}"> --}}
@@ -109,7 +120,7 @@ $mxh_top = DB::table('photos')
     {!! $settings['ANALYTICS'] !!}
     {!! $settings['WEB_MASTER_TOOL'] !!}
     {!! $settings['HEAD_JS'] !!}
-    
+
 </head>
 
 <body class="preloading">
@@ -139,6 +150,7 @@ $mxh_top = DB::table('photos')
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=590530215089180&autoLogAppEvents=1"
         nonce="6XAmrWOg"></script>
     <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
     <script src="{{ asset('public/site/js/sweetalert.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('public/site/js/owl.carousel.js') }}"></script>
@@ -149,18 +161,17 @@ $mxh_top = DB::table('photos')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
-
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-simplyscroll/2.1.1/jquery.simplyscroll.min.js"></script>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-simplyscroll/2.1.1/jquery.simplyscroll.css" media="all"
         type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    
+   
     <script type="text/javascript">
         var showTopTop = 200;
-
+        var showContent = 290;
         $(window).on('load', function(event) {
             $('body').removeClass('preloading');
             $('.load').delay(100).fadeOut('fast');
@@ -169,11 +180,17 @@ $mxh_top = DB::table('photos')
         $(window).scroll(function() {
             if ($(this).scrollTop() >= showTopTop) {
                 $('#toptop').fadeIn();
+                //document.getElementsByClassName("right-content").style.position = "fixed";
             } else {
                 $('#toptop').fadeOut();
+                //document.getElementsByClassName("right-content").style.position = "static";
             }
         });
-
+        $(function() {
+            $("#datepicker").datepicker({
+                dateFormat: "dd/mm/yy",
+            });
+        });
         $('#toptop').click(function() {
             $('html, body').animate({
                 scrollTop: 0
@@ -193,7 +210,23 @@ $mxh_top = DB::table('photos')
             });
         })(jQuery);
 
+        $(window).scroll(function() {
+            if ($(this).scrollTop() >= showContent) {
 
+                document.getElementById("aaaaa").style.position = "fixed";
+            } else {
+
+                document.getElementById("aaaaa").style.position = "static";
+            }
+
+            if ($(window).scrollTop() + window.innerHeight >= $(document).height()) {
+                document.getElementById("aaaaa").style.display = "none";
+                // document.queryselector(".vertical-social-i").style.display = "none";
+            } else {
+                document.getElementById("aaaaa").style.display = "block";
+                // document.queryselector(".vertical-social-i").style.display = "block";
+            }
+        });
         $(window).load(function() {
             $('#slider').nivoSlider();
         });

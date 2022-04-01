@@ -9,6 +9,8 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\NewsTranslation;
+use App\Models\Category;
+use App\Http\Controllers\Helpers\Recusive;
 use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
@@ -20,7 +22,9 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('id', 'DESC')->get();
+        $news = News::select('news_translations.title', 'news.created_at', 'news.noi_bac', 'news.status', 'news.id', 'news.photo', 'categories.name')
+            ->join('news_translations', 'news_translations.news_id', '=', 'news.id')
+            ->leftJoin('categories', 'categories.id', '=', 'news.category_id')->where('news_translations.locale', 'vi')->orderBy('news.id', 'DESC')->get();
         $row = json_decode(json_encode([
             "title" => "News",
             "desc" => "Tin tức"
@@ -42,7 +46,10 @@ class NewsController extends Controller
             "title" => "Create News",
             "desc" => "Thêm tin tức"
         ]));
-        return view("admin.news.add", compact('row', 'settings'));
+        $data = Category::where('status', 1)->orderBy('stt', 'ASC')->get();
+        $recusive = new Recusive($data);
+        $htmlOption = $recusive->categoryRecusive($parent_id = '');
+        return view("admin.news.add", compact('row', 'settings', 'htmlOption'));
     }
 
     /**
@@ -62,14 +69,16 @@ class NewsController extends Controller
         $request->validate([
             'slug' => 'required|unique:news,slug|max:255',
             'status' => 'required',
-            'photo' => 'required|mimes:jpg,png,jpeg,gif'
+            'photo' => 'required|mimes:jpg,png,jpeg,gif',
+            'category_id' => 'required|numeric'
         ], [
             "slug.required" => "Vui lòng nhập slug",
             "slug.unique" => "Slug đã tồn tại",
             "slug.max" => "Slug không quá 255 ký tự",
             "status.required" => "Vui lòng chọn trạng thái",
             "photo.required" => "Vui lòng thêm hình ảnh",
-            "photo.mimes" => "Chọn đúng đinh dạng hình ảnh: jpg, png, jpeg, gif"
+            "photo.mimes" => "Chọn đúng đinh dạng hình ảnh: jpg, png, jpeg, gif",
+            "category_id.required" => "Vui lòng chọn danh mục"
         ]);
 
         $news = new News;
@@ -87,6 +96,7 @@ class NewsController extends Controller
             ],
         ]);
         $news->noi_bac = 0;
+        $news->category_id = $request->category_id;
         $news->keywords = $request->keywords;
         $news->status = $request->status;
         $news->slug = $request->slug;
@@ -129,22 +139,27 @@ class NewsController extends Controller
     public function edit($id)
     {
 
+        
         $settings = Config::all(['name', 'value'])->keyBy('name')->transform(function ($setting) {
             return $setting->value; // return only the value
         })->toArray();
 
         $news_vi = DB::table('news')->join('news_translations', 'news_translations.news_id', '=', 'news.id')
             ->where('news_translations.news_id', $id)->where('news_translations.locale', 'vi')->first();
-        // dd($news_vi['news_id']);
+        
+        
         $news_en = DB::table('news')->join('news_translations', 'news_translations.news_id', '=', 'news.id')
             ->where('news_translations.news_id', $id)->where('news_translations.locale', 'en')->first();
-
+        $data = Category::all();
+        $recusive = new Recusive($data);
+        $htmlOption = $recusive->categoryRecusive($news_vi->category_id);
+        
         $row = json_decode(json_encode([
             "title" => "Update news",
             "desc" => "Chỉnh sửa tin tức"
         ]));
 
-        return view("admin.news.edit", compact('news_vi', 'news_en', 'row', 'settings'));
+        return view("admin.news.edit", compact('news_vi', 'news_en', 'row', 'settings','htmlOption'));
     }
 
     /**
@@ -164,13 +179,15 @@ class NewsController extends Controller
         $request->validate([
             'slug' => 'required|unique:news,slug,' . $news->id . '|max:255',
             'status' => 'required',
-            'photo' => 'mimes:jpg,png,jpeg,gif'
+            'photo' => 'mimes:jpg,png,jpeg,gif',
+            'category_id' => 'required'
         ], [
             "slug.required" => "Vui lòng nhập slug",
             "slug.unique" => "Slug đã tồn tại",
             "slug.max" => "Slug không quá 255 ký tự",
             "status.required" => "Vui lòng chọn trạng thái",
-            "photo.mimes" => "Chọn đúng đinh dạng hình ảnh: jpg, png, jpeg, gif"
+            "photo.mimes" => "Chọn đúng đinh dạng hình ảnh: jpg, png, jpeg, gif",
+            "category_id.required" => "Vui lòng danh mục"
         ]);
 
         $news->fill([
@@ -189,6 +206,8 @@ class NewsController extends Controller
         $news->status = $request->status;
         $news->keywords = $request->keywords;
         $news->slug = $request->slug;
+        $news->category_id = $request->category_id;
+
 
         if ($request->hasFile('photo')) {
             $file = $request->photo;

@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\site\ProductSiteController;
+use App\Http\Controllers\site\CategorySiteController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\GalleryController;
 use App\Http\Controllers\admin\AuthenticationController;
@@ -71,7 +72,8 @@ Route::get("/search", [HomeController::class, "Search"])->name('search.product')
 // Route::get("/san-pham", [ProductSiteController::class, "getAllProduct"])->name('get.product');
 // Route::get("/mua-ban-nha-dat/{slug}", [ProductSiteController::class, "getNhaDatBySlug"])->name('get.nha.dat.slug');
 // Route::get("/mua-ban-nha-dat", [ProductSiteController::class, "getAllNhaDat"])->name('get.nha.dat');
-// Route::get("/danh-muc/{slug}", [ProductSiteController::class, "productCategory"])->name('get.product.category.slug');
+Route::get("/danh-muc/{slug}", [CategorySiteController::class, "newsCategory"])->name('get.news.category.slug');
+Route::get("/danh-muc/{slug}/{slug1}", [CategorySiteController::class, "categoryLV2"]);
 
 //News
 Route::get("/tin-tuc/{slug}", [NewsSiteController::class, "getNewsBySlug"])->name('get.news.slug');

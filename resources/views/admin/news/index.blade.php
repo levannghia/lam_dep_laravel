@@ -19,6 +19,7 @@
                                             <th>#</th>
                                             <th>Photo</th>
                                             <th>Tiêu đề</th>
+                                            <th>Danh mục</th>
                                             <th>Created at</th>
                                             <th>Nổi bật</th>
                                             <th>Hiển thị</th>
@@ -42,6 +43,7 @@
                                                     <td><a href="{{ route('admin.news.edit', $item->id) }}"
                                                             title="Chỉnh sửa {{ $item->title }}">{{ $item->title }}</a>
                                                     </td>
+                                                    <td>{{$item->name}}</td>
                                                     <td>{{ $item->created_at->diffForHumans() }}</td>
                                                     <td><input type="checkbox" name="check_noi_bac[]"
                                                             {{ $item->noi_bac == 1 ? 'checked' : '' }}

@@ -16,6 +16,32 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
 @endif
 @section('SEO_description', $settings['SEO_DISCRIPTION'])
 @section('content')
+    <div class="bottom-header bg-green">
+        <div class="container">
+            <ul class="list-category">
+                @foreach ($categoryNoibat as $item)
+                    @php
+                        $slugCategoryLV1 = DB::table('categories')
+                            ->select('slug')
+                            ->where('id', $item->parent_id)
+                            ->where('status', 1)
+                            ->first();
+                    @endphp
+                    <li><a href="/danh-muc/{{ $slugCategoryLV1->slug }}/{{ $item->slug }}">{{ $item->name }}</a></li>
+                @endforeach
+                <li>
+                    <form class="form-inline my-2 my-lg-0" action="{{ route('search.product') }}">
+                        <div id="search">
+                            <input type="text" name="q" id="keyword" class="form-control mr-sm-2 search-input" type="search"
+                                placeholder="{{ __('lang.search') }}..." aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="content">
         <div class="container">
             <!-- Banner - menu -->
@@ -45,64 +71,38 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="list-title">
-                        <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a
-                                    itemprop="item" href="https://www.femina.in"><span itemprop="name">Home</span>
-                                    <meta itemprop="position" content="1">
-                                </a></li>
-
-                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a
-                                    itemprop="item" href="https://www.femina.in/beauty"><span itemprop="name">
-                                        Làm đẹp </span>
-                                    <meta itemprop="position" content="2">
-                                </a></li>
-
-
-                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a
-                                    itemprop="item" href="https://www.femina.in/beauty/hair"><span itemprop="name">
-                                        Leather </span>
-                                    <meta itemprop="position" content="3">
-                                </a></li>
-
-
-                            <li class="active">
-                                <span class="title-name">
-                                    Dịch vụ trị mụn - tại sao da bạn lại bị mụn </span>
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="product-content">
-                        <h1 class="title-content">Dịch vụ trị mụn - tại sao da bạn lại bị mụn</h1>
-                        <p class="post-admin">by <a href="">Thẩm Mỹ Kim Liên</a>&#160;|&#160;<span>April 9, 2022,
-                                20:36</span> </p>
-                        <div class="col-sm-12 img-content">
-                            <img src="{{ asset('public/site/images/kamatn1jpg1648182089.jpg') }}" alt="">
+                <div class="col-md-8" style="background-color: white;">
+                    @include('site.inc.breadcrumb', [
+                        'param1' => request()->segment(1),
+                        'param2' => request()->segment(2),
+                        'param3' => request()->segment(3),
+                    ])
+                    @foreach ($news as $item)
+                        <div class="product-content">
+                            <h1 class="title-content">{{ $item->title }}</h1>
+                            <p class="post-admin">by <a
+                                    href="">{{ $settings['DTBAN'] }}</a>&#160;|&#160;<span>{{ $item->created_at->format('F d, Y, h:i') }}</span>
+                            </p>
+                            <div class="col-sm-12 img-content">
+                                <img src="{{ asset('public/upload/images/news/thumb/' . $item->photo) }}"
+                                    alt="{{ $item->title }}">
+                            </div>
+                            <div class="desc">
+                                {{ $item->description }} <span><a href="">Xem thêm...</a></span>
+                            </div>
+                            <div class="subricbe">
+                                <div class="g-ytsubscribe" data-channelid="{{$settings['ID_CHANNEL_YOUTUBE']}}" data-layout="default"
+                                    data-count="default"></div>
+                                <div class="fb-like" data-href="{{$settings['FANPAGE']}}" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+                            </div>
                         </div>
-                        <div class="desc">
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit consequatur maiores, minus
-                                tempora et voluptatem impedit deleniti nisi necessitatibus mollitia esse ut nemo, quo error
-                                facere culpa odio ullam cum.</p>
-                        </div>
-                    </div>
-                    <div class="product-content">
-                        <h1 class="title-content">Dịch vụ trị mụn - tại sao da bạn lại bị mụn</h1>
-                        <p class="post-admin">by <a href="">Thẩm Mỹ Kim Liên</a>&#160;|&#160;<span>April 9, 2022,
-                                20:36</span> </p>
-                        <div class="col-sm-12 img-content">
-                            <img src="{{ asset('public/site/images/kamatn1jpg1648182089.jpg') }}" alt="">
-                        </div>
-                        <div class="desc">
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit consequatur maiores, minus
-                                tempora et voluptatem impedit deleniti nisi necessitatibus mollitia esse ut nemo, quo error
-                                facere culpa odio ullam cum.</p>
-                        </div>
-                    </div>
-                    <div class="read-more"><a href="">Xem Thêm</a></div>
+                    @endforeach
+                    <div class="pagination-defaut">{{ $news->links() }}</div>
+                    {{-- <div class="read-more"><a href="">Xem Thêm</a></div> --}}
                 </div>
+
                 <div class="col-md-3">
-                    <div class="right-content">
+                    <div class="right-content" id="aaaaa">
                         <div class="popular">
                             <h6>Tin nổi bật</h6>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -112,60 +112,104 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                                        aria-selected="false">Tuần</a>
+                                        aria-selected="false">Tháng</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                                        aria-selected="false">Tháng</a>
+                                        aria-selected="false">Năm</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                     <div class="row">
-                                        <div class="col col-md-4 left-popular-img">
-                                            <a href="/"><img
-                                                    src="{{ asset('public/site/images/bao-ve-muc-tieu-co-dinh-45193922_170x128.png') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="col col-md-8 right-title-news">
-                                            <p class="title-news">Tiêu đề 1</p>
-                                            <p class="des-news">Kama Ayurveda’s New Bringadi Masks Are Perfect</p>
-                                        </div>
-                                        <div class="col col-md-4 left-popular-img">
-                                            <a href="/"><img
-                                                    src="{{ asset('public/site/images/bao-ve-muc-tieu-co-dinh-45193922_170x128.png') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="col col-md-8 right-title-news">
-                                            <p class="title-news">Tiêu đề 2</p>
-                                            <p class="des-news">Kama Ayurveda’s New Bringadi Masks Are Perfect</p>
-                                        </div>
-                                        <div class="col col-md-4 left-popular-img">
-                                            <a href="/"><img
-                                                    src="{{ asset('public/site/images/bao-ve-muc-tieu-co-dinh-45193922_170x128.png') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="col col-md-8 right-title-news">
-                                            <p class="title-news">Tiêu đề 3</p>
-                                            <p class="des-news">Kama Ayurveda’s New Bringadi Masks Are Perfect</p>
-                                        </div>
+                                        @foreach ($newsDate as $item)
+                                            @php
+                                                $cateSlug1 = DB::table('categories')
+                                                    ->where('id', $item->parent_id)
+                                                    ->first();
+                                            @endphp
+                                            @if (isset($cateSlug1))
+                                                <div class="col col-md-4 left-popular-img">
+                                                    <a
+                                                        href="/danh-muc/{{ $cateSlug1->slug }}/{{ $item->cateSlug }}/{{ $item->slug }}">
+                                                        <img src="{{ asset('public/upload/images/news/thumb/' . $item->photo) }}"
+                                                            alt="{{ $item->title }}">
+                                                    </a>
+                                                </div>
+                                                <div class="col col-md-8 right-title-news">
+                                                    <a
+                                                        href="/danh-muc/{{ $cateSlug1->slug }}/{{ $item->cateSlug }}/{{ $item->slug }}">
+                                                        <p class="title-news">{{ $item->title }}</p>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="row">
+                                        @foreach ($newsMonth as $item)
+                                            @php
+                                                $cateSlug1 = DB::table('categories')
+                                                    ->where('id', $item->parent_id)
+                                                    ->first();
+                                            @endphp
+                                            @if (isset($cateSlug1))
+                                                <div class="col col-md-4 left-popular-img">
+                                                    <a
+                                                        href="/danh-muc/{{ $cateSlug1->slug }}/{{ $item->cateSlug }}/{{ $item->slug }}">
+                                                        <img src="{{ asset('public/upload/images/news/thumb/' . $item->photo) }}"
+                                                            alt="{{ $item->title }}">
+                                                    </a>
+                                                </div>
+                                                <div class="col col-md-8 right-title-news">
+                                                    <a
+                                                        href="/danh-muc/{{ $cateSlug1->slug }}/{{ $item->cateSlug }}/{{ $item->slug }}">
+                                                        <p class="title-news">{{ $item->title }}</p>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        @endforeach
+
+                                    </div>
                                 </div>
-                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...
+                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                    <div class="row">
+                                        @foreach ($newsYear as $item)
+                                            @php
+                                                $cateSlug1 = DB::table('categories')
+                                                    ->where('id', $item->parent_id)
+                                                    ->first();
+                                            @endphp
+                                            @if (isset($cateSlug1))
+                                                <div class="col col-md-4 left-popular-img">
+                                                    <a
+                                                        href="/danh-muc/{{ $cateSlug1->slug }}/{{ $item->cateSlug }}/{{ $item->slug }}">
+                                                        <img src="{{ asset('public/upload/images/news/thumb/' . $item->photo) }}"
+                                                            alt="{{ $item->title }}">
+                                                    </a>
+                                                </div>
+                                                <div class="col col-md-8 right-title-news">
+                                                    <a
+                                                        href="/danh-muc/{{ $cateSlug1->slug }}/{{ $item->cateSlug }}/{{ $item->slug }}">
+                                                        <p class="title-news">{{ $item->title }}</p>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="conact-form">
                             <h6>Đặt lịch hẹn, tư vấn</h6>
-                            <form class="col-sm-12 form-contact validation-contact"
-                                id="form_contact">
+                            <form class="col-sm-12 form-contact validation-contact" id="form_contact" autocomplete="off">
                                 @csrf
                                 <div class="row">
                                     <div class="input-contact col-sm-12">
                                         <input type="text" class="form-control" id="ten" name="name"
-                                            value="{{ old('name') }}" placeholder="{{ __('lang.fullname') }}" required>
+                                            value="{{ old('name') }}" placeholder="{{ __('lang.fullname') }}"
+                                            required>
                                         <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
                                         <p class="error_name mt-1 mb-0" style="color:#EF8D21;display:none;"></p>
                                     </div>
@@ -176,112 +220,39 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                                         <div class="invalid-feedback">Vui lòng nhập số điện thoại</div>
                                         <p class="error_sdt mt-1 mb-0" style="color:#EF8D21;display:none;"></p>
                                     </div>
+                                    <div class="date-booking" style="display: flex;">
+                                        <div class="input-contact col-sm-6">
+                                            <input type="text" class="form-control" id="datepicker" name="date"
+                                                placeholder="Date" required value="{{ old('date') }}">
+                                            <div class="invalid-feedback">Date</div>
+                                            <p class="error_date mt-1 mb-0" style="color:#EF8D21;display:none;"></p>
+                                        </div>
+                                        <div class="input-contact col-sm-6">
+                                            <input type="text" class="form-control timepicker" name="time"
+                                                placeholder="8:00 AM" required value="{{ old('time') }}">
+                                            <div class="invalid-feedback">Time</div>
+                                            <p class="error_time mt-1 mb-0" style="color:#EF8D21;display:none;"></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                
+
                                 <div class="input-contact">
-                                    <textarea rows="4" class="form-control-te" id="noidung" name="content" placeholder="{{ __('lang.content') }}"
+                                    <textarea rows="3" class="form-control-te" id="noidung" name="content" placeholder="{{ __('lang.content') }}"
                                         required>{{ old('content') }}</textarea>
                                     <div class="invalid-feedback">Vui lòng nhập nội dung</div>
                                     <p class="error_content mt-1 mb-0" style="color:#EF8D21;display:none;"></p>
                                 </div>
-                                
+
                                 <input type="button" class="btn btn-leather" name="submit-contact" id="btn_send"
                                     value="{{ __('lang.btnSubmit') }}">
-                                
+
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="service-blocks">
-                <div class="owl-carousel owl-theme">
-                    @foreach ($service as $key => $item)
-                        <div class="item">
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top"
-                                    src="{{ asset('public/upload/images/service/thumb/' . $item->photo) }}"
-                                    alt="{{ $item->title }}">
-                                <div class="card-body">
-                                    <p class="card-title" style="text-transform: uppercase;"><a
-                                            href="/dich-vu/{{ $item->slug }}">{{ $item->title }}</a></p>
-                                    <p class="card-text">
-                                        @if (strlen($item->description) > 122)
-                                            {{ substr($item->description, 0, 122) . '...' }}
-                                        @else
-                                            {{ $item->description }}
-                                        @endif
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
 
-            <div class="box-center mt-5">
-                <div class="row">
-                    <div class="col-md-6 box-logo">
-                        <div class="box-tintuc-head-mt">{{ __('lang.recruitment2') }}</div>
-                        <div class="box-tintuc-ct-mt">
-                            <div class="box-tintuc-ct-mt1">
-                                <div class="box-tintuc-ten-mt1">
-                                    <p>{{ isset($recruit) ?  $recruit->title : '' }}</p>
-                                </div>
-                                <div class="mota-tintuc-mt">
-                                    {{ isset($recruit) ? $recruit->description : '' }}
-                                </div>
-                                <a href="/tuyen-dung/{{ isset($recruit) ? $recruit->slug : ''}}"> {{ __('lang.more') }} ...</a>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 box-logo">
-                        <div class="box-tintuc-head-mt">LOGO</div>
-                        <div class="box-tintuc-ct-mt">
-                            <div class="doitac-tintuc">
-                                <div class="owl-carousel owl-theme">
-                                    @foreach ($partner as $key => $item)
-                                        <div class="item">
-                                            <img src="{{ asset('public/upload/images/photo/thumb/' . $item->photo) }}"
-                                                alt="{{ $item->title }}">
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <img src="{{ asset('public/upload/images/photo/thumb/' . $bannerContent->photo) }}" alt="">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="banner-criteria">
-            <div class="container">
-                <h2 class="distance">{{ __('lang.criteria') }}</h2>
-                <p class="discription">{{ __('lang.title_criteria') }}</p>
-                <div class="row criteria-blocks">
-                    <div class="owl-carousel owl-theme">
-                        @foreach ($standard as $key => $item)
-                            <div class="item">
-                                <div class="col-md-4 criteria-option col-6 img-flucol-6">
-                                    <div class="hinh_chonct">
-                                        <a href="#"><img class="eeee"
-                                                src="{{ asset('public/upload/images/standard/thumb/' . $item->photo) }}"
-                                                alt="GIÁ CẢ CẠNH TRANH"></a>
-                                    </div>
-                                    <div class="wrapper">
-                                        <h4 class="third after">{{ $item->title }}</h4>
-                                    </div>
-                                    <p class="standard-content">{{ $item->description }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
             </div>
         </div>
-
         {{-- <div class="container">
             <div class="video-clip">
                 <h2 class="product-new">Video Clip</h2>
@@ -355,29 +326,10 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                 </div>
             </div>
         </div> --}}
-        <div class="banner-criteria banner-imgall">
-            <div class="container">
-                <h2 class="distance">{{ __('lang.album_hinhanh') }}</h2>
-                <div class="album-hinh-anh" style="margin-top: 35px;">
-                    <div class="owl-carousel owl-theme">
-                        @foreach ($album as $item)
-                            <div class="item">
-                                <div class="col-md-3 criteria-option col-6 img-flucol-6">
-                                    <div class="img_all">
-                                        <img class="eeee"
-                                            src="{{ asset('public/upload/images/photo/thumb/' . $item->photo) }}"
-                                            alt="{{ asset('public/upload/images/photo/thumb/' . $item->photo) }}">
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="bando_footer">
+
+        {{-- <div id="bando_footer">
             {!! $settings['MAP_IFRAME'] !!}
-        </div>
+        </div> --}}
 
         <!-- Modal -->
         <div class="modal fade" id="modal_map" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -440,65 +392,7 @@ $urlLogo = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/photo/thum
                 }
             });
 
-            $('.album-hinh-anh .owl-carousel').owlCarousel({
-                loop: true,
-                margin: 10,
-                dots: false,
-                nav: false,
-                autoplay: true,
-                autoplayTimeout: 5000,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 2
-                    },
-                    1000: {
-                        items: 4
-                    }
-                }
-            });
 
-            $('.doitac-tintuc .owl-carousel').owlCarousel({
-                loop: true,
-                margin: 10,
-                nav: false,
-                dots: false,
-                autoplay: true,
-                autoplayTimeout: 4000,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 2
-                    },
-                    1000: {
-                        items: 3
-                    }
-                }
-            });
-
-            $('.service-blocks .owl-carousel').owlCarousel({
-                loop: true,
-                dots: false,
-                margin: 10,
-                nav: false,
-                autoplay: true,
-                autoplayTimeout: 4000,
-                responsive: {
-                    0: {
-                        items: 2
-                    },
-                    600: {
-                        items: 3
-                    },
-                    1000: {
-                        items: 4
-                    }
-                }
-            });
 
             // $(document).ready(function() {
 

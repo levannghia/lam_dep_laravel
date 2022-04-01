@@ -80,6 +80,13 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group">
+                                <label for="exampleTextarea1">Danh mục</label>
+                                <select class="js-example-basic-multiple w-100" name="category_id">
+                                    <option value="">Chọn danh mục cha</option>
+                                    {!! $htmlOption !!}
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <?php
                                 $thumbsize = json_decode($settings['THUMB_SIZE_NEWS']);
                                 ?>

@@ -13,6 +13,7 @@ $urlPhoto = $protocol . $_SERVER['HTTP_HOST'] . '/public/upload/images/seoPage/t
 @endif
 @section('SEO_description', $seoPage->description)
 @section('content')
+@include('site.inc.categorychirld')
     <div class="main-content-contacts">
         <div class="container">
         <div class="tieude_giua"><div>{{__('lang.news')}}</div><span></span></div>
